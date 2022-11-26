@@ -7,7 +7,7 @@
         class="btn btn-outline-primary"
         type="button"
         @click="enterWithGoogle">Login with Google</button>
-        <small>All rights reserved.</small>
+        <small>All rights reserved. Contact mcoelho2011@hotmail.com</small>
         
         
     </div>
