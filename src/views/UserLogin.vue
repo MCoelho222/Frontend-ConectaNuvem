@@ -7,7 +7,7 @@
         class="btn btn-outline-primary"
         type="button"
         @click="enterWithGoogle">Login with Google</button>
-        <p id="footer">All rights reserved.</p>
+        <p id="footer">&copy; 2022 M Coelho People. All rights reserved.</p>
         
         
         
@@ -67,6 +67,15 @@ body {
     color: rgb(39, 39, 39);
 }
 #footer {
-    color: rgb(17, 118, 219);
+    font-size: x-small;
+    color: rgb(184, 184, 184);
+    text-align: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+
 }
 </style>
