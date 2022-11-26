@@ -1,13 +1,13 @@
 <template>
     <div id="home">
-        <h4 id="brand-login">People</h4>
+        <h4 id="brand-login">People Contacts</h4>
         <p id="words-login">All your contacts by domain</p>  
         <p>Please, come and share your contacts!</p>
         <button 
         class="btn btn-outline-primary"
         type="button"
         @click="enterWithGoogle">Login with Google</button>
-        <small>All rights reserved. Contact mcoelho2011@hotmail.com</small>
+        
         
         
     </div>
