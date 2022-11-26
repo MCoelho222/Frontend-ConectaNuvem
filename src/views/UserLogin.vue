@@ -1,6 +1,6 @@
 <template>
     <div id="home">
-        <h4 id="brand-login">People Contacts</h4>
+        <h4 id="brand-login">People</h4>
         <p id="words-login">All your contacts by domain</p>  
         <p>Please, come and share your contacts!</p>
         <button 
