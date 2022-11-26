@@ -7,6 +7,7 @@
         class="btn btn-outline-primary"
         type="button"
         @click="enterWithGoogle">Login with Google</button>
+        <small>All rights reserved</small>
         
         
     </div>
@@ -63,5 +64,8 @@ body {
 
 #words-login {
     color: rgb(39, 39, 39);
+}
+small {
+    color: rgb(17, 118, 219);
 }
 </style>
