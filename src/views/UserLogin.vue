@@ -68,7 +68,7 @@ body {
 }
 #footer {
     font-size: x-small;
-    color: rgb(184, 184, 184);
+    color: rgb(87, 84, 84);
     text-align: center;
     justify-content: center;
     position: fixed;
