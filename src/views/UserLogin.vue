@@ -7,7 +7,7 @@
         class="btn btn-outline-primary"
         type="button"
         @click="enterWithGoogle">Login with Google</button>
-        <small>All rights reserve</small>
+        <small>All rights reserved</small>
         
         
     </div>
