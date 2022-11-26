@@ -1,0 +1,134 @@
+<template>
+    <div class="container-fluid">
+        <div id="top-msg">
+            <h5 id="welcome">{{ welcomeMsg }}</h5>
+            <p id="words">{{ someOtherWords }}</p>
+            <p id="email">{{ emailAddress }}</p>
+        </div>
+
+        <h4 id="sorry-msg" v-if="isEmpty">Sorry, you don't have any contacts to share...</h4>
+        <h5 id="todo-msg" v-if="isEmpty">Please, go to your e-mail box and add some e-mails to your contacts.</h5>
+        <table class="table align-middle" v-else>
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th class="text-start lg" scope="col">Domain</th>
+                <th class="text-start lg" scope="col">Emails</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(domain, key, index) in peopleObj.contacts" :key="index">
+                <th scope="row">{{index + 1}}</th>
+                    <td class="text-start">{{ key }}</td>
+
+                    <td class="text-start">
+                        <ul>
+                            <li v-for="(email,  item) in domain" :key="item">{{email}}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</template>
+<script>
+import { useCookies } from "vue3-cookies";
+
+const cookies = useCookies().cookies;
+
+export default {
+    data() {
+        return {
+            peopleObj: {
+                'profile': {},
+                'contacts': []
+            },
+            name: 'User',
+            email: 'useremail@email.com' 
+        }
+    },
+    methods: {
+        async populate() {
+            let loader = this.$loading.show();
+            setTimeout(() => loader.hide(), 500)
+            let token = cookies.get('token')
+            
+            if (token !== null) {
+                if (token.status) {
+                    let people = localStorage.getItem('people')
+                    let parsePeople = JSON.parse(people)
+                    this.name = parsePeople['profile']['name']
+                    this.email = parsePeople['profile']['email']
+                    if (people != null) {
+                        let peopleObj = JSON.parse(people)
+                        this.peopleObj = peopleObj
+                    }
+                }
+            }  
+        }
+    },
+    computed: {
+        isEmpty() {
+            let keys = Object.keys(this.peopleObj.contacts)
+            return keys.length == 0
+        },
+        welcomeMsg() {
+            return `Welcome, ${this.name}!`
+        },
+        someOtherWords() {
+            return `These are the email addresses from all your contacts`
+        },
+        emailAddress() {
+            return `${this.email}`
+        }
+    },
+    mounted() {
+        return this.populate()
+    }
+}
+</script>
+<style scoped>
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+table {
+    background-color: white;
+}
+
+.container-fluid {
+    background-color: aliceblue
+}
+
+#top-msg {
+    color: rgb(34, 33, 33);
+}
+
+#sorry-msg {
+    padding-top: 70px;
+}
+
+#todo-msg {
+    padding-top: 50px;
+}
+
+#welcome {
+    padding: 30px 0px 10px 0px;
+
+}
+
+#words {
+    margin: 0px 0px;
+}
+
+#email {
+    margin: 10px 10px;
+    color: rgb(9, 123, 236);
+    font-weight: bolder;
+}
+</style>
