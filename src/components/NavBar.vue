@@ -41,7 +41,14 @@ export default {
     },
     methods: {
         async logout () {
-            await axios.get("https://mcoelho-peop-4feilbi6na-rj.a.run.app/people/logout").then(() => {
+            await axios.get("https://mcoelho-peop-4feilbi6na-rj.a.run.app/people/logout", { 
+        headers: {
+            'Access-Control-Allow-Origin': "https://mcoelho-peop-4feilbi6na-rj.a.run.app/",
+            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Max-Age': '86400'
+        }
+    }).then(() => {
                 let check = cookies.get('token')
                 if (check !== null) {
                     cookies.remove('token')
