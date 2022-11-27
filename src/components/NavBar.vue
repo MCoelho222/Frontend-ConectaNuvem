@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         async logout () {
-            await axios.get("http://localhost:5000/people/logout").then(() => {
+            await axios.get("https://mcoelho-peop-4feilbi6na-rj.a.run.app/people/logout").then(() => {
                 let check = cookies.get('token')
                 if (check !== null) {
                     cookies.remove('token')
