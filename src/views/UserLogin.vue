@@ -64,7 +64,7 @@ body {
 }
 
 #words-login {
-    color: rgb(39, 39, 39);
+    color: rgb(29, 90, 244);
 }
 #footer {
     font-size: x-small;
