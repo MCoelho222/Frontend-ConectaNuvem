@@ -24,7 +24,7 @@ export default {
   },
   actions: {
     async getPersonInfo(context) {
-      await axios.get("https://mcoelho-5446-people-4feilbi6na-rj.a.run.app/people").then((response) => {
+      await axios.get("https://mcoelhoperson-4feilbi6na-rj.a.run.app/people").then((response) => {
         let check = cookies.get('token')
         if (check == null) {
           cookies.set('token', {
@@ -37,7 +37,7 @@ export default {
       })
     },
     async validateToken(context, token) {
-      await axios.get(`https://mcoelho-5446-people-4feilbi6na-rj.a.run.app/people/verify/?token=${token}`).then((response) => {
+      await axios.get(`https://mcoelhoperson-4feilbi6na-rj.a.run.app/people/verify/?token=${token}`).then((response) => {
         if (response.data.status == 'false') {
           let tokenObj = cookies.get('token')
           tokenObj.status = false
