@@ -8,6 +8,7 @@ export default {
   state () {
     return {
       personInfo: {},
+      backendUrl: 'https://mcoelho-people-w5u4ladcda-uc.a.run.app'
     }
   },
   getters: {
@@ -17,7 +18,7 @@ export default {
   },
   actions: {
     async getPersonInfo(context, token) {
-      await axios.get(`http://localhost:5000/people/?token=${token}`).then((response) => {
+      await axios.get(`${context.state.backendUrl}/people/?token=${token}`).then((response) => {
         let check = cookies.get('token')
         if (response.error) {
           check.status = false
