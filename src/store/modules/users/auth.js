@@ -1,53 +1,48 @@
 import axios from "axios"
-import { useCookies } from "vue3-cookies";
+// import { useCookies } from "vue3-cookies";
 
-const cookies = useCookies().cookies;
+// const cookies = useCookies().cookies;
 
 export default {
   namespaced: true,
   state () {
     return {
-      personInfo: {}
+      url_auth: null
     }
-    
   },
   getters: {
-    sendPersonInfo(state) {
-      return state.personInfo
-    },
-    sendPersonInfoKeys(state) {
-      let keys = Object.keys(state.personInfo)
-      return keys
-    }
+    
   },
   mutations: {
-  },
-  actions: {
-    async getPersonInfo(context) {
-      await axios.get("http://localhost:5000/people").then((response) => {
-        let check = cookies.get('token')
-        if (check == null) {
-          cookies.set('token', {
-            'token': response.data.profile.token,
-            'status': true
-          })
-        }
-        context.state.personInfo = response.data
-        localStorage.setItem('people', JSON.stringify(response.data))
-      })
-    },
-    async validateToken(context, token) {
-      await axios.get(`http://localhost:5000/people/verify/?token=${token}`).then((response) => {
-        if (response.data.status == 'false') {
-          let tokenObj = cookies.get('token')
-          tokenObj.status = false
-          cookies.set('token', tokenObj)
-        } 
-      })
+    setURL(state,  url) {
+      state.url_auth = url
     }
   },
-  modules: {
+  actions: {
+    async getUrlAuth(context) {
+      context.commit("setURL", null);
+      await axios.post("http://localhost:5000/users/auth/google").then((response) => {
+        context.commit("setURL", response.data.url);
+        // let check = cookies.get('token')
+        // if (check == null) {
+        //   cookies.set('token', {
+        //     'token': response.data.profile.token,
+        //     'status': true
+        //   })
+        // }
+        // context.state.personInfo = response.data
+        // localStorage.setItem('people', JSON.stringify(response.data))
+      })
+    },
+    // async validateToken(context, token) {
+    //   // await axios.get(`http://localhost:5000/people/verify/?token=${token}`).then((response) => {
+    //   //   if (response.data.status == 'false') {
+    //   //     let tokenObj = cookies.get('token')
+    //   //     tokenObj.status = false
+    //   //     cookies.set('token', tokenObj)
+    //   //   } 
+    //   // })
+    // }
   }
-
 }
 

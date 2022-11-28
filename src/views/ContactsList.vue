@@ -32,9 +32,10 @@
     </div>
 </template>
 <script>
-import { useCookies } from "vue3-cookies";
+// import { useCookies } from "vue3-cookies";
+import { mapActions } from 'vuex';
 
-const cookies = useCookies().cookies;
+// const cookies = useCookies().cookies;
 
 export default {
     data() {
@@ -48,23 +49,27 @@ export default {
         }
     },
     methods: {
+        ...mapActions(["contacts/getPersonInfo", "contacts/validateToken"]),
         async populate() {
-            let loader = this.$loading.show();
-            setTimeout(() => loader.hide(), 500)
-            let token = cookies.get('token')
-            
-            if (token !== null) {
-                if (token.status) {
-                    let people = localStorage.getItem('people')
-                    let parsePeople = JSON.parse(people)
-                    this.name = parsePeople['profile']['name']
-                    this.email = parsePeople['profile']['email']
-                    if (people != null) {
-                        let peopleObj = JSON.parse(people)
-                        this.peopleObj = peopleObj
-                    }
+            await this["contacts/getPersonInfo"]().then(() => {
+
+                let loader = this.$loading.show();
+                setTimeout(() => loader.hide(), 500)
+                // let token = cookies.get('token')
+                let people = localStorage.getItem('people')
+                let parsePeople = JSON.parse(people)
+                this.name = parsePeople['profile']['name']
+                this.email = parsePeople['profile']['email']
+                if (people != null) {
+                    let peopleObj = JSON.parse(people)
+                    this.peopleObj = peopleObj
                 }
-            }  
+            })
+            
+            // if (token !== null) {
+            //     if (token.status) {
+            //     }
+            // }  
         }
     },
     computed: {

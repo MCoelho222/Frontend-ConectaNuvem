@@ -14,10 +14,10 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
-import { useCookies } from 'vue3-cookies';
+import { mapActions, mapState } from 'vuex';
+// import { useCookies } from 'vue3-cookies';
 
-const cookies = useCookies().cookies
+// const cookies = useCookies().cookies
 
 export default {
     data() {
@@ -26,28 +26,37 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["auth/getPersonInfo", "auth/validateToken"]),
+        ...mapActions(["auth/getUrlAuth"]),
         async enterWithGoogle() {
-            await this["auth/getPersonInfo"]().then(() =>
-            this.$router.push('people/contacts')
-            )
+            this["auth/getUrlAuth"]().then(() => {
+                location.href = this.url_auth
+            })
+            // await this["auth/getPersonInfo"]().then(() =>
+            // this.$router.push('people/contacts')
+            // )
         }
     },
     computed: {
+        ...mapState({
+            // success: (state) => state.auth.success,
+            // errorMsg: (state) => state.auth.errorMsg,
+            // userLogged: (state) => state.auth.user,
+            url_auth: (state) => state.auth.url_auth
+        })
         
     },
     mounted() {
-        let token = cookies.get('token')
-        if (token !== null) {
-            if (token.status) {
-                this["auth/validateToken"](token.token).then(() => {
-                    let currentToken = cookies.get('token')
-                    if (currentToken.status) {
-                        this.$router.push('/people/contacts')
-                    }
-                })
-            }
-        }
+        // let token = cookies.get('token')
+        // if (token !== null) {
+        //     if (token.status) {
+        //         this["auth/validateToken"](token.token).then(() => {
+        //             let currentToken = cookies.get('token')
+        //             if (currentToken.status) {
+        //                 this.$router.push('/people/contacts')
+        //             }
+        //         })
+        //     }
+        // }
     }
 }
 </script>
