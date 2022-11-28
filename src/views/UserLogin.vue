@@ -27,10 +27,13 @@ export default {
     },
     methods: {
         ...mapActions(["auth/getUrlAuth"]),
-        async enterWithGoogle() {
+        enterWithGoogle() {
             this["auth/getUrlAuth"]().then(() => {
                 location.href = this.url_auth
             })
+            // .then(() => {
+            //     this.$router.push('people/contacts')
+            // })
             // await this["auth/getPersonInfo"]().then(() =>
             // this.$router.push('people/contacts')
             // )
@@ -45,19 +48,19 @@ export default {
         })
         
     },
-    mounted() {
-        // let token = cookies.get('token')
-        // if (token !== null) {
-        //     if (token.status) {
-        //         this["auth/validateToken"](token.token).then(() => {
-        //             let currentToken = cookies.get('token')
-        //             if (currentToken.status) {
-        //                 this.$router.push('/people/contacts')
-        //             }
-        //         })
-        //     }
+    // mounted() {
+    //     let token = cookies.get('token')
+    //     console.log(token)
+    //     if (token !== null) {
+    //         this.$router.push('/people/contacts')
+            // if (token.status) {
+            //     this["auth/validateToken"](token.token).then(() => {
+            //         let currentToken = cookies.get('token')
+                    
+            //     })
+            // }
         // }
-    }
+    // }
 }
 </script>
 <style scoped>

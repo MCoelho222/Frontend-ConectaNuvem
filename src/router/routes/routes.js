@@ -18,22 +18,11 @@ const routes = [
     path: "/people/:token?",
     component: TemplateView,
     beforeEnter: (to) => {
-      console.log(to.params.token)
-      let payload = JSON.stringify(to.params.token)
-      cookies.set('token', payload)
-      let token = cookies.get('token')
-      if (token !== null) {
-        return (to.path = "people/contacts");
-        // if (!token.status) {
-        // } 
-      // return (to.path = "people/contacts");
-      // }
-      // return true;
-    }
-    if (token == null) {
-      return (to.path = "/")
-    }
-    return true
+      if (to.params.token) {
+        cookies.set('token', to.params.token)
+        return (to.path = "/people/contacts")
+      }
+   
     },
     children: [
       { path: 'home', component: HomeView},
