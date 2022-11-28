@@ -8,7 +8,8 @@ export default {
   state () {
     return {
       url_auth: null,
-      status: true
+      status: true,
+      backendUrl: 'https://mcoelho-people-w5u4ladcda-uc.a.run.app'
     }
   },
   getters: {
@@ -22,12 +23,12 @@ export default {
   actions: {
     async getUrlAuth(context) {
       context.commit("setURL", null);
-      await axios.post("http://localhost:5000/users/auth/google").then((response) => {
+      await axios.post(`${context.state.backendUrl}/users/auth/google`).then((response) => {
         context.commit("setURL", response.data.url);
       })
     },
     async validateToken(context, token) {
-      await axios.get(`http://localhost:5000/users/verify/?token=${token}`).then((response) => {
+      await axios.get(`${context.state.backendUrl}/users/verify/?token=${token}`).then((response) => {
         let tokenObj = cookies.get('token')
         
         if (response.data.status == 'false') {
@@ -40,7 +41,7 @@ export default {
       })
     },
     async logout (context) {
-      await axios.get("http://localhost:5000/users/logout").then(() => {
+      await axios.get(`${context.state.backendUrl}/users/logout`).then(() => {
         context.state.status = false
         let token = cookies.get('token')
         if (token !== null) {
