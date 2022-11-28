@@ -1,13 +1,14 @@
 <template>
     <div id="home">
-        <h4 id="brand-login">People Contacts</h4>
+        <div id="img"><img src="../assets/at-sign-aroba-email-e-mail-47390.webp" alt="arroba symbol"></div>
+        <h4 id="brand-login">Super OrgContacts</h4>
         <p id="words-login">All your contacts by domain</p>  
         <p>Please, come and share your contacts!</p>
         <button 
         class="btn btn-outline-primary"
         type="button"
         @click="enterWithGoogle">Login with Google</button>
-        <p id="footer">&copy; 2022 M Coelho People. All rights reserved.</p>
+        <p id="footer">&copy; 2022 Super OrgContacs. All rights reserved.</p>
     </div>
 </template>
 <script>
@@ -51,8 +52,12 @@ export default {
 }
 </script>
 <style scoped>
-body {
-    background-color: rgb(70, 70, 70);
+
+img  {
+    width:60px;
+    height: 60px;
+    margin-bottom: 20px;
+
 }
 #home {
     padding: 200px 30px;
