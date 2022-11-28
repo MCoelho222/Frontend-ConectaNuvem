@@ -9,7 +9,7 @@ export default {
     return {
       url_auth: null,
       status: true,
-      backendUrl: 'https://mcoelho-infinite-w5u4ladcda-uc.a.run.app'
+      backendUrl: 'http://mcoelho-infinite-w5u4ladcda-uc.a.run.app'
     }
   },
   getters: {
