@@ -8,16 +8,13 @@
         type="button"
         @click="enterWithGoogle">Login with Google</button>
         <p id="footer">&copy; 2022 M Coelho People. All rights reserved.</p>
-        
-        
-        
     </div>
 </template>
 <script>
 import { mapActions, mapState } from 'vuex';
-// import { useCookies } from 'vue3-cookies';
+import { useCookies } from 'vue3-cookies';
 
-// const cookies = useCookies().cookies
+const cookies = useCookies().cookies
 
 export default {
     data() {
@@ -26,41 +23,31 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["auth/getUrlAuth"]),
+        ...mapActions(["auth/getUrlAuth", "auth/validateToken"]),
         enterWithGoogle() {
             this["auth/getUrlAuth"]().then(() => {
                 location.href = this.url_auth
             })
-            // .then(() => {
-            //     this.$router.push('people/contacts')
-            // })
-            // await this["auth/getPersonInfo"]().then(() =>
-            // this.$router.push('people/contacts')
-            // )
         }
     },
     computed: {
         ...mapState({
-            // success: (state) => state.auth.success,
-            // errorMsg: (state) => state.auth.errorMsg,
-            // userLogged: (state) => state.auth.user,
             url_auth: (state) => state.auth.url_auth
-        })
-        
+        }) 
     },
-    // mounted() {
-    //     let token = cookies.get('token')
-    //     console.log(token)
-    //     if (token !== null) {
-    //         this.$router.push('/people/contacts')
-            // if (token.status) {
-            //     this["auth/validateToken"](token.token).then(() => {
-            //         let currentToken = cookies.get('token')
-                    
-            //     })
-            // }
-        // }
-    // }
+    async mounted() {
+        let token = cookies.get('token')
+        if (token !== null) {
+            if (token.status) {
+                await this["auth/validateToken"](token.token).then(() => {
+                    let currentToken = cookies.get('token')
+                    if (currentToken.status) {
+                        this.$router.push('/people/contacts')
+                    } 
+                })
+            }
+        }
+    }
 }
 </script>
 <style scoped>

@@ -1,13 +1,14 @@
 import axios from "axios"
-// import { useCookies } from "vue3-cookies";
+import { useCookies } from "vue3-cookies";
 
-// const cookies = useCookies().cookies;
+const cookies = useCookies().cookies;
 
 export default {
   namespaced: true,
   state () {
     return {
-      url_auth: null
+      url_auth: null,
+      status: true
     }
   },
   getters: {
@@ -23,26 +24,31 @@ export default {
       context.commit("setURL", null);
       await axios.post("http://localhost:5000/users/auth/google").then((response) => {
         context.commit("setURL", response.data.url);
-        // let check = cookies.get('token')
-        // if (check == null) {
-        //   cookies.set('token', {
-        //     'token': response.data.profile.token,
-        //     'status': true
-        //   })
-        // }
-        // context.state.personInfo = response.data
-        // localStorage.setItem('people', JSON.stringify(response.data))
       })
     },
-    // async validateToken(context, token) {
-    //   // await axios.get(`http://localhost:5000/people/verify/?token=${token}`).then((response) => {
-    //   //   if (response.data.status == 'false') {
-    //   //     let tokenObj = cookies.get('token')
-    //   //     tokenObj.status = false
-    //   //     cookies.set('token', tokenObj)
-    //   //   } 
-    //   // })
-    // }
+    async validateToken(context, token) {
+      await axios.get(`http://localhost:5000/users/verify/?token=${token}`).then((response) => {
+        let tokenObj = cookies.get('token')
+        
+        if (response.data.status == 'false') {
+          tokenObj.status = false
+        } 
+        if (response.data.status == 'true') {
+          tokenObj.status = true
+        } 
+        cookies.set('token', JSON.stringify(tokenObj))
+      })
+    },
+    async logout (context) {
+      await axios.get("http://localhost:5000/users/logout").then(() => {
+        context.state.status = false
+        let token = cookies.get('token')
+        if (token !== null) {
+            cookies.remove('token')
+            localStorage.removeItem('people')
+        }
+      })
+    }
   }
 }
 

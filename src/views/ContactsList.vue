@@ -6,8 +6,8 @@
             <p id="email">{{ emailAddress }}</p>
         </div>
 
-        <h4 id="sorry-msg" v-if="isEmpty">Sorry, you don't have any contacts to share...</h4>
-        <h5 id="todo-msg" v-if="isEmpty">Please, go to your e-mail box and add some e-mails to your contacts.</h5>
+        <p id="sorry-msg" v-if="isEmpty">Sorry, you don't have any contacts to share...</p>
+        <p id="todo-msg" v-if="isEmpty">Please, go to your e-mail box and add some e-mails to your contacts.</p>
         <table class="table align-middle" v-else>
             <thead>
                 <tr>
@@ -32,10 +32,10 @@
     </div>
 </template>
 <script>
-// import { useCookies } from "vue3-cookies";
+import { useCookies } from "vue3-cookies";
 import { mapActions } from 'vuex';
 
-// const cookies = useCookies().cookies;
+const cookies = useCookies().cookies;
 
 export default {
     data() {
@@ -49,27 +49,31 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["contacts/getPersonInfo", "contacts/validateToken"]),
+        ...mapActions(["contacts/getPersonInfo"]),
         async populate() {
-            await this["contacts/getPersonInfo"]().then(() => {
-
-                let loader = this.$loading.show();
-                setTimeout(() => loader.hide(), 500)
-                // let token = cookies.get('token')
-                let people = localStorage.getItem('people')
-                let parsePeople = JSON.parse(people)
-                this.name = parsePeople['profile']['name']
-                this.email = parsePeople['profile']['email']
-                if (people != null) {
-                    let peopleObj = JSON.parse(people)
-                    this.peopleObj = peopleObj
+            let token = cookies.get('token')
+            if (token !== null) {
+                if (token.status) {
+                    let loader = this.$loading.show();
+                    await this["contacts/getPersonInfo"](token.token).then(() => {
+                        loader.hide()
+                        let people = localStorage.getItem('people')
+                        let parsePeople = JSON.parse(people)
+                        this.name = parsePeople['profile']['name']
+                        this.email = parsePeople['profile']['email']
+                        if (people != null) {
+                            let peopleObj = JSON.parse(people)
+                            this.peopleObj = peopleObj
+                        }
+                    })
                 }
-            })
-            
-            // if (token !== null) {
-            //     if (token.status) {
-            //     }
-            // }  
+                if (!token.status) {
+                    this.$router.push("/") 
+                }
+            }
+            if (token == null) {
+                this.$router.push("/") 
+            }  
         }
     },
     computed: {
@@ -115,16 +119,15 @@ table {
 }
 
 #sorry-msg {
-    padding-top: 70px;
+    padding-top: 0px;
 }
 
 #todo-msg {
-    padding-top: 50px;
+    padding-top: 10px;
 }
 
 #welcome {
     padding: 30px 0px 10px 0px;
-
 }
 
 #words {
