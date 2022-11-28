@@ -8,7 +8,7 @@ export default {
   state () {
     return {
       personInfo: {},
-      backendUrl: 'https://mcoelho-people-w5u4ladcda-uc.a.run.app'
+      backendUrl: 'https://mcoelho-infinite-w5u4ladcda-uc.a.run.app'
     }
   },
   getters: {
