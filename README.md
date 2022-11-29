@@ -8,6 +8,8 @@ To run the application you need to run the [Backend application on localhost](ht
 
 For running locally, please follow this instructions.
 
+**IMPORTANT**: If the page fail to load, just reload it.
+
 ## Project setup
 ```
 npm install
