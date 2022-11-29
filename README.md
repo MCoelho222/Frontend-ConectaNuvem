@@ -8,7 +8,7 @@ To run the application you need to run the [Backend application on localhost](ht
 
 For running locally, please follow this instructions.
 
-**IMPORTANT**: If the page fail to load, just reload it.
+**IMPORTANT**: If the page fail to load, just reload it. Some type of accounts, for example student accounts just do not work at all, and you'll have to manually delete the cookie named token in your browser devtools.
 
 ## Project setup
 ```
