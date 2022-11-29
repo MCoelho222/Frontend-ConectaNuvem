@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg bg-primary">
             <div class="container-fluid">
-                <span id="brand">People Contacts</span>
+                <span id="brand">Super OrgContact</span>
                 <button class="btn btn-outlined btn-primary" type="button" @click="logout">Logout</button>
                 <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
