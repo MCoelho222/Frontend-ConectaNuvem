@@ -4,18 +4,10 @@
             <div class="container-fluid">
                 <div class="left-side">
                     <span id="brand">Super OrgContact</span>
-                    <a class="nav-link active" aria-current="page" href="#/report">Report</a>
+                    <span><a class="nav-link active" aria-current="page" href="#/people/report">Report</a></span>
+                    <span><a class="nav-link active" aria-current="page" href="#/people/contacts">Home</a></span>
                 </div>
                 <button class="btn btn-outlined btn-primary" type="button" @click="logout">Logout</button>
-                <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#/people/report">Contacts</a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
         </nav>
     </div>
