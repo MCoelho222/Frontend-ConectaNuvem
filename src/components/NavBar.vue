@@ -2,12 +2,14 @@
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg bg-primary">
             <div class="container-fluid">
-                <span id="brand">Super OrgContact</span>
+                <div class="left-side">
+                    <span id="brand">Super OrgContact</span>
+                    <a class="nav-link active" aria-current="page" href="#/report">Report</a>
+                </div>
                 <button class="btn btn-outlined btn-primary" type="button" @click="logout">Logout</button>
                 <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#/">Stats</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#/people/report">Contacts</a>
