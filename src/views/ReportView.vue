@@ -1,6 +1,6 @@
 <template>
     <div class="statsdiv">
-    <GChart type="ColumnChart" :data="chartData" :options="chartOptions"></GChart>
+    <GChart type="PieChart" :data="chartData" :options="chartOptions"></GChart>
       
     </div>
 </template>
@@ -14,7 +14,14 @@ export default {
     },
     data() {
         return {
-            charData: []
+            chartData: [],
+            chartOptions: {
+                chart: {
+                    title: 'Contacts by Domain',
+                    width: 800,
+                    heigth: 600
+                }
+            }
 
         }
     },
@@ -29,7 +36,13 @@ export default {
         if (data != null) {
             let contacts = JSON.parse(data).contacts
             console.log(contacts)
-
+            let contactsKeys = Object.keys(contacts)
+            let chartLegend = ['Domain', 'Total']
+            this.chartData.push(chartLegend)
+            contactsKeys.forEach(item => {
+                let domainArray = contacts[item]
+                this.chartData.push([item, domainArray.length])
+            })
         } 
     }
 }

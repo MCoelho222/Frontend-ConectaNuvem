@@ -1,6 +1,7 @@
 import UserLogin from '../../views/UserLogin.vue';
 import TemplateView from '../../views/TemplateView.vue';
 import ContactsList from '../../views/ContactsList.vue';
+import ReportView from '../../views/ReportView.vue';
 import { useCookies } from "vue3-cookies";
 
 const cookies = useCookies().cookies;
@@ -26,7 +27,8 @@ const routes = [
       }
     },
     children: [
-      { path: 'contacts', component: ContactsList}
+      { path: 'contacts', component: ContactsList},
+      { path: 'report', component: ReportView}
     ]
   }
 ]
