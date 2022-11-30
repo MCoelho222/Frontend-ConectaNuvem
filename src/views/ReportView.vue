@@ -1,7 +1,7 @@
 <template>
     <div class="statsdiv">
     <GChart type="PieChart" :data="chartData" :options="chartOptions"></GChart>
-      
+    
     </div>
 </template>
 <script>
