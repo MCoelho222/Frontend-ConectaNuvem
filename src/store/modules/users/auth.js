@@ -9,7 +9,7 @@ export default {
     return {
       url_auth: null,
       status: true,
-      backendUrl: 'http://localhost:5000'
+      backendUrl: 'https://mcoelho-contacts-4feilbi6na-rj.a.run.app/'
     }
   },
   getters: {
