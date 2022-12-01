@@ -1,5 +1,8 @@
 <template>
     <div class="statsdiv">
+    <p id="initial-msg">Most of your contacts are...</p>
+    <p id="top-domain">{{ top.domain }}</p>
+    <p id="top-total">{{ top.total }} contacts!</p>
     <GChart type="PieChart" :data="chartData" :options="chartOptions"></GChart>
     
     </div>
@@ -18,10 +21,11 @@ export default {
             chartOptions: {
                 chart: {
                     title: 'Contacts by Domain',
-                    width: 800,
-                    heigth: 600
+                    width: 1200,
+                    heigth: 1200
                 }
-            }
+            },
+            top: {}
 
         }
     },
@@ -35,22 +39,43 @@ export default {
         let data = localStorage.getItem('people')
         if (data != null) {
             let contacts = JSON.parse(data).contacts
-            console.log(contacts)
+
             let contactsKeys = Object.keys(contacts)
             let chartLegend = ['Domain', 'Total']
             this.chartData.push(chartLegend)
+            let top = {
+                'domain': null,
+                'total': 0
+                }
             contactsKeys.forEach(item => {
-                let domainArray = contacts[item]
+                const domainArray = contacts[item]
+                if (domainArray.length > top.total) {
+                    top.domain = item
+                    top.total = domainArray.length
+                }
                 this.chartData.push([item, domainArray.length])
             })
+            this.top = top
         } 
     }
 }
 </script>
 <style scoped>
-* {
+/* * {
   margin: 0;
   padding: 0;
   
+} */
+#initial-msg {
+    padding-top: 30px;
+    font-size:x-large;
+}
+#top-domain {
+    color:dodgerblue;
+    font-weight: bolder;
+    animation: mymove 5s infinite;
+}
+@keyframes mymove {
+  50% {font-size: 40px;}
 }
 </style>

@@ -13,22 +13,36 @@ const routes = [
     component: UserLogin
   },
   {
-    path: "/people/:token?",
+    path: "/people",
     name: 'Template',
     component: TemplateView,
-    beforeEnter: (to) => {
-      if (to.params.token) {
-        let tokenJson = {
-          'token': to.params.token,
-          'status': true
-        }
-        cookies.set('token', JSON.stringify(tokenJson))
-        return (to.path = "/people/contacts")
-      }
-    },
+    
     children: [
-      { path: 'contacts', component: ContactsList},
-      { path: 'report', component: ReportView}
+      { path: 'contacts', 
+      component: ContactsList, 
+      beforeEnter: (to) => {
+        let token = cookies.get('token')
+        if (token == null) {
+          return (to.path = "/")
+  
+        } else {
+          if (!token.status) {
+            return (to.path = "/")
+          }
+        }
+        // if (to.params.token) {
+        //   let tokenJson = {
+        //     'token': to.params.token,
+        //     'status': true
+        //   }
+        //   cookies.set('token', JSON.stringify(tokenJson))
+        //   return (to.path = "/people/contacts")
+        // }
+      },
+    },
+      { path: 'report', 
+      component: ReportView
+    }
     ]
   }
 ]

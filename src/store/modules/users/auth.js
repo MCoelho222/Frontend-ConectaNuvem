@@ -9,7 +9,7 @@ export default {
     return {
       url_auth: null,
       status: true,
-      backendUrl: 'https://mcoelho-contacts-4feilbi6na-rj.a.run.app',
+      backendUrl: 'https://superorgcontact-3fufpf5spq-rj.a.run.app',
     }
   },
   getters: {
